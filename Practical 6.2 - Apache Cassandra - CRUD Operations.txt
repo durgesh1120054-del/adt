@@ -1,0 +1,61 @@
+Practical 6.2 — Apache Cassandra - CRUD Operations
+==================================================
+
+INSTALLATION & SETUP
+Install Docker Desktop (as in Practical 6.1) and restart the system.
+Open PowerShell as Administrator and start the Cassandra container: docker run -d --name cassandra -p 9042:9042 cassandra
+Check the status: docker ps
+Open the CQL shell: docker exec -it cassandra cqlsh
+
+COMMANDS / QUERIES
+
+Query 1 — Create Cassandra Keyspace
+CREATE KEYSPACE mydb WITH replication = {'class':'SimpleStrategy', 'replication_factor':1};
+
+Query 2 — Select Keyspace
+USE mydb;
+
+Query 3 — Create Student Table
+CREATE TABLE students ( id int PRIMARY KEY, name text, age int, grade text, city text );
+
+Query 4 — Display All Students
+SELECT * FROM students;
+
+Query 5 — Select Student Fields
+SELECT name, grade FROM students;
+
+Query 6 — Find Student ID
+SELECT * FROM students WHERE id = 3;
+
+Query 7 — Filter By Grade
+SELECT * FROM students WHERE grade = 'A' ALLOW FILTERING;
+
+Query 8 — Update Student City
+UPDATE students SET city = 'Bangalore' WHERE id = 2;
+
+Query 9 — Delete City Field
+DELETE city FROM students WHERE id = 8;
+
+Query 10 — Delete Student Row
+DELETE FROM students WHERE id = 4;
+
+Query 11 — Count Student Records
+SELECT COUNT(*) FROM students;
+
+Query 12 — Add Email Column
+ALTER TABLE students ADD email text;
+
+Query 13 — Remove Email Column
+ALTER TABLE students DROP email;
+
+Query 14 — Clear Student Table
+TRUNCATE students;
+
+Query 15 — Drop Student Table
+DROP TABLE students;
+
+Query 16 — Drop Keyspace
+DROP KEYSPACE mydb;
+
+Query 17 — Exit Cassandra Shell
+exit;
